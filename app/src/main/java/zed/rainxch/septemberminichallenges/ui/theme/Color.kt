@@ -2,7 +2,7 @@ package zed.rainxch.septemberminichallenges.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-object LineupList {
+object LineupListColors {
     val surface = Color(0xffFFFFF0)
     val textPrimary = Color(0xff421E17)
     val textSecondary = Color(0xff786B68)

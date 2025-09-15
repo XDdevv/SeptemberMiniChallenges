@@ -70,7 +70,11 @@ class LineupListViewModel : ViewModel() {
                     state.copy(
                         stages = state.stages.map { stage ->
                             if (stage.title == action.stage.title) {
-                                stage.copy(expanded = true)
+                                if (stage.expanded) {
+                                    stage.copy(expanded = false)
+                                } else {
+                                    stage.copy(expanded = true)
+                                }
                             } else stage.copy(expanded = false)
                         }
                     )
