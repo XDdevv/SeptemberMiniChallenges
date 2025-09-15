@@ -6,6 +6,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
 class TicketBuilderViewModel : ViewModel() {
 
@@ -15,7 +17,8 @@ class TicketBuilderViewModel : ViewModel() {
     val state = _state
         .onStart {
             if (!hasLoadedInitialData) {
-                /** Load initial data here **/
+                loadInitialData()
+
                 hasLoadedInitialData = true
             }
         }
@@ -25,9 +28,83 @@ class TicketBuilderViewModel : ViewModel() {
             initialValue = TicketBuilderState()
         )
 
+    private fun loadInitialData() {
+        viewModelScope.launch {
+            val tickets = listOf(
+                Ticket(
+                    title = "Standard",
+                    price = 40f,
+                    ticketType = TicketType.STANDART
+                ),
+                Ticket(
+                    title = "VIP",
+                    price = 70f,
+                    ticketType = TicketType.VIP
+                ),
+                Ticket(
+                    title = "Backstage",
+                    price = 120f,
+                    ticketType = TicketType.BACKSTAGE
+                )
+            )
+
+            _state.update {
+                it.copy(
+                    tickets = tickets,
+                    selectedTicketType = null,
+                    quantity = 1,
+                    total = 0f
+                )
+            }
+        }
+    }
+
     fun onAction(action: TicketBuilderAction) {
         when (action) {
-            else -> TODO("Handle actions")
+            is TicketBuilderAction.OnTicketTypeSelected -> {
+                _state.update {
+                    it.copy(
+                        selectedTicketType = action.ticket,
+                        quantity = 1
+                    )
+                }
+
+                calculateTotal()
+            }
+
+            TicketBuilderAction.OnQuantityDecrease -> {
+                _state.update { it.copy(quantity = it.quantity - 1) }
+
+                calculateTotal()
+            }
+
+            TicketBuilderAction.OnQuantityIncrease -> {
+                _state.update { it.copy(quantity = it.quantity + 1) }
+
+                calculateTotal()
+            }
+        }
+    }
+
+    private fun calculateTotal() {
+        viewModelScope.launch {
+            val state = _state.value
+            if (state.selectedTicketType == null) {
+                _state.update {
+                    it.copy(
+                        quantity = 1,
+                        total = 0f
+                    )
+                }
+
+                return@launch
+            }
+
+            _state.update {
+                it.copy(
+                    total = state.selectedTicketType.price * state.quantity
+                )
+            }
         }
     }
 
