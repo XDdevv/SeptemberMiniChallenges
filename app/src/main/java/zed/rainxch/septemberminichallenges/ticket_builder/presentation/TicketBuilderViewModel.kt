@@ -101,3 +101,8 @@ class TicketBuilderViewModel : ViewModel() {
     }
 
 }
+
+
+fun Float.toFormattedValue(): String {
+    return this.toString().dropLast(2)
+}

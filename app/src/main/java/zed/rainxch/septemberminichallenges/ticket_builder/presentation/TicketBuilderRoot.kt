@@ -104,7 +104,7 @@ fun TicketBuilderScreen(
                     .padding(horizontal = 16.dp, vertical = 40.dp)
             ) {
                 Text(
-                    text = "Ticket Type:",
+                    text = "Ticket Type:".uppercase(),
                     fontFamily = parkinsansFont,
                     fontWeight = FontWeight.Medium,
                     fontSize = 20.sp,
@@ -145,7 +145,7 @@ fun TicketBuilderScreen(
                             }
 
                             Text(
-                                text = "$${ticket.price}",
+                                text = "$${ticket.price.toFormattedValue()}",
                                 fontFamily = parkinsansFont,
                                 fontWeight = FontWeight.SemiBold,
                                 fontSize = 24.sp,
@@ -158,7 +158,7 @@ fun TicketBuilderScreen(
                 Spacer(Modifier.height(48.dp))
 
                 Text(
-                    text = "Quantity:",
+                    text = "Quantity:".uppercase(),
                     fontFamily = parkinsansFont,
                     fontWeight = FontWeight.Medium,
                     fontSize = 20.sp,
@@ -244,7 +244,7 @@ fun TicketBuilderScreen(
                     )
 
                     Text(
-                        text = "$${state.total}",
+                        text = "$${state.total.toFormattedValue()}",
                         fontFamily = parkinsansFont,
                         fontWeight = FontWeight.SemiBold,
                         fontSize = 28.sp,
@@ -267,10 +267,11 @@ fun TicketBuilderScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 4.dp),
+                enabled = state.purchageEnabled,
                 contentPadding = PaddingValues(vertical = 16.dp)
             ) {
                 Text(
-                    text = "Purchase",
+                    text = "Purchase".uppercase(),
                     fontFamily = parkinsansFont,
                     fontWeight = FontWeight.SemiBold,
                     fontSize = 30.sp,
