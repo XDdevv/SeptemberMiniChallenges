@@ -8,6 +8,9 @@ data class TicketBuilderState(
 ) {
     val purchageEnabled: Boolean
         get() = selectedTicketType != null
+
+    val decreaseEnabled: Boolean
+        get() = quantity > 1
 }
 
 data class Ticket(

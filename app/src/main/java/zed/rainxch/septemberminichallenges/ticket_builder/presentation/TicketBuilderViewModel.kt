@@ -65,7 +65,8 @@ class TicketBuilderViewModel : ViewModel() {
                 _state.update {
                     it.copy(
                         selectedTicketType = action.ticket,
-                        quantity = 1
+                        quantity = 1,
+                        total = 0f
                     )
                 }
 
@@ -89,21 +90,12 @@ class TicketBuilderViewModel : ViewModel() {
     private fun calculateTotal() {
         viewModelScope.launch {
             val state = _state.value
-            if (state.selectedTicketType == null) {
+            state.selectedTicketType?.let { it1 ->
                 _state.update {
                     it.copy(
-                        quantity = 1,
-                        total = 0f
+                        total = it1.price * state.quantity
                     )
                 }
-
-                return@launch
-            }
-
-            _state.update {
-                it.copy(
-                    total = state.selectedTicketType.price * state.quantity
-                )
             }
         }
     }
