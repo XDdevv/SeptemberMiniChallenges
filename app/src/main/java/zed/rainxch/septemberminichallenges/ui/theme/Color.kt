@@ -22,6 +22,7 @@ object TicketBuilderColors {
 
 object AudioScheduleColors {
     val surface = Color(0xffFFFFF0)
+    val surfaceHigher = Color(0xffFCF3E2)
     val textPrimary = Color(0xff421E17)
     val textSecondary = Color(0xff786B68)
     val lime = Color(0xffE0E270)
