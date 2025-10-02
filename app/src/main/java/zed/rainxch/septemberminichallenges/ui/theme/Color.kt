@@ -40,3 +40,14 @@ object FestivalMapColors {
     val orange = Color(0xffEC9C50)
     val pink = Color(0xffF59BB0)
 }
+
+object TimelinePainterColors {
+    val surface = Color(0xffFFFFF0)
+    val outline = Color(0xffE8DBC3)
+    val textPrimary = Color(0xff421E17)
+    val textSecondary = Color(0xff786B68)
+    val lime = Color(0xffE0E270)
+    val orange = Color(0xffEC9C50)
+    val pink = Color(0xffF59BB0)
+    val overlay = Color(0xff221513).copy(alpha = .75f)
+}
